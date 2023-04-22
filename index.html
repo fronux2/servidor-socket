@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Socket.IO Example</title>
+  </head>
+  <body>
+    <h1>Socket.IO Example</h1>
+    <input type="text" id="message-input" />
+    <button id="send-button">Send</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.min.js"></script>
+    <script>
+      const socket = io("http://192.168.1.104:3000");
+
+      socket.on("connect", () => {
+        console.log("Connected to server!");
+      });
+
+      socket.on("message", (message) => {
+        console.log(`Received message: ${message}`);
+      });
+
+      document.querySelector("#send-button").addEventListener("click", () => {
+        const message = document.querySelector("#message-input").value;
+        socket.emit("message", message);
+      });
+    </script>
+  </body>
+</html>
